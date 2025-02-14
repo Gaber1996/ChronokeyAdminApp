@@ -112,18 +112,34 @@ function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <ChartCard icon={PieChart} title="Gender Distribution" subtitle="Breakdown of users by gender">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm font-medium">Male</span>
-                  <span className="text-sm font-semibold">{stats.maleUsers} users ({Math.ceil((stats.maleUsers / stats.totalUsers) * 100)}%)</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm font-medium">Female</span>
-                  <span className="text-sm font-semibold">{stats.femaleUsers} users ({Math.ceil((stats.femaleUsers / stats.totalUsers) * 100)}%)</span>
-                </div>
-              </div>
-            </ChartCard>
+            <ChartCard 
+                     icon={PieChart}
+                     title="Gender Distribution"
+                     subtitle="Breakdown of users by gender"
+                   >
+                     <div className="space-y-4">
+                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                         <div className="flex items-center gap-3">
+                           <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                           <span className="text-sm font-medium">Male</span>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <span className="text-sm font-semibold">{stats.maleUsers} users</span>
+                           <span className="badge badge-primary">{Math.ceil((stats.maleUsers / stats.totalUsers)*100)} %</span>
+                         </div>
+                       </div>
+                       <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                         <div className="flex items-center gap-3">
+                           <div className="w-3 h-3 rounded-full bg-pink-500"></div>
+                           <span className="text-sm font-medium">Female</span>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <span className="text-sm font-semibold">{stats.femaleUsers} users</span>
+                           <span className="badge badge-primary">{Math.ceil((stats.femaleUsers / stats.totalUsers)*100)} %</span>
+                         </div>
+                       </div>
+                     </div>
+                   </ChartCard>
 
             <ChartCard icon={BarChart} title="Age Distribution" subtitle="Users by age groups">
               <div className="space-y-4">
