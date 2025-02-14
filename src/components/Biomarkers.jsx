@@ -357,7 +357,7 @@ function Biomarkers() {
         <h2 className="text-lg font-medium">Biomarkers</h2>
         <div className="flex items-center gap-4 w-full-mobile">
           <div className="form-group flex-1">
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <Search className="text-gray" size={20} style={{ marginLeft: '10px', position: 'absolute' }} />
               <input
                 type="text"
@@ -365,7 +365,7 @@ function Biomarkers() {
                 className="form-control"
                 style={{ paddingLeft: '35px' }}
               />
-            </div>
+            </div> */}
           </div>
           <button className="btn btn-light">
             <Filter size={20} />

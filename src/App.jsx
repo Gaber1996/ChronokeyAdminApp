@@ -123,14 +123,14 @@ function App() {
               <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
                 {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
               </h1>
-              <div className="hidden md:block max-w-md w-full relative">
+              {/* <div className="hidden md:block max-w-md w-full relative">
                 <Search className="search-icon" size={20} />
                 <input
                   type="text"
                   placeholder="Search..."
                   className="search-input"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="flex items-center gap-4 md:gap-6">
               <button className="btn btn-light !p-2.5">
