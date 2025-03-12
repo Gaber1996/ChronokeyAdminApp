@@ -16,7 +16,7 @@ import {
 import Dashboard from './components/Dashboard';
 import Categories from './components/Categories';
 import Biomarkers from './components/Biomarkers';
-import Login from './components/Login';
+import Prompts from './components/Prompts';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,6 +33,7 @@ function App() {
     { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/categories', icon: FolderOpen, label: 'Categories' },
     { path: '/biomarkers', icon: ClipboardList, label: 'Biomarkers' },
+    { path: '/prompts', icon: ClipboardList, label: 'Prompts' },
     { path: '/settings', icon: Settings, label: 'Settings' }
   ];
 
@@ -172,6 +173,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/biomarkers" element={<Biomarkers />} />
+              <Route path="/prompts" element={<Prompts />} />
               <Route path="/settings" element={<div>Settings Page</div>} />
             </Routes>
           </div>
