@@ -8,15 +8,15 @@ import BASE_URL from './apis';
 //   const [editedBiomarker, setEditedBiomarker] = useState(
 //     biomarker || {
 //       name: '',
-//       ranges: {}
+//       referenceValues: {}
 //     }
 //   );
 
 //   const handleRangeChange = (field, value) => {
 //     setEditedBiomarker({
 //         ...editedBiomarker,
-//         ranges: {
-//             ...editedBiomarker.ranges,
+//         referenceValues: {
+//             ...editedBiomarker.referenceValues,
 //             [field]: value
 //         }
 //     });
@@ -25,7 +25,7 @@ import BASE_URL from './apis';
 //   const addRange = () => {
 //     setEditedBiomarker({
 //       ...editedBiomarker,
-//       ranges: [...editedBiomarker.ranges, {
+//       referenceValues: [...editedBiomarker.referenceValues, {
 //         low: '',
 //         normal: '',
 //         high: ''
@@ -34,8 +34,8 @@ import BASE_URL from './apis';
 //   };
 
 //   const removeRange = (index) => {
-//     const newRanges = editedBiomarker.ranges.filter((_, i) => i !== index);
-//     setEditedBiomarker({ ...editedBiomarker, ranges: newRanges });
+//     const newRanges = editedBiomarker.referenceValues.filter((_, i) => i !== index);
+//     setEditedBiomarker({ ...editedBiomarker, referenceValues: newRanges });
 //   };
 
 //   const handleSubmit = () => {
@@ -44,9 +44,9 @@ import BASE_URL from './apis';
 //       return;
 //     }
 
-//     const invalidRanges =  !editedBiomarker.ranges.low || 
-//     !editedBiomarker.ranges.normal || 
-//     !editedBiomarker.ranges.high;
+//     const invalidRanges =  !editedBiomarker.referenceValues.low || 
+//     !editedBiomarker.referenceValues.normal || 
+//     !editedBiomarker.referenceValues.high;
 //     if (invalidRanges) {
 //       alert('All range fields must be filled');
 //       return;
@@ -159,7 +159,7 @@ import BASE_URL from './apis';
 //                         type="text"
 //                         className="form-control"
 //                         placeholder="e.g., <70 mg/dL"
-//                         value={editedBiomarker.ranges.low}
+//                         value={editedBiomarker.referenceValues.low}
 //                         onChange={(e) => handleRangeChange('low', e.target.value)}
 //                       />
 //                     </div>
@@ -169,7 +169,7 @@ import BASE_URL from './apis';
 //                         type="text"
 //                         className="form-control"
 //                         placeholder="e.g., 70-99 mg/dL"
-//                         value={editedBiomarker.ranges.normal}
+//                         value={editedBiomarker.referenceValues.normal}
 //                         onChange={(e) => handleRangeChange('normal', e.target.value)}
 //                       />
 //                     </div>
@@ -179,7 +179,7 @@ import BASE_URL from './apis';
 //                         type="text"
 //                         className="form-control"
 //                         placeholder="e.g., >99 mg/dL"
-//                         value={editedBiomarker.ranges.high}
+//                         value={editedBiomarker.referenceValues.high}
 //                         onChange={(e) => handleRangeChange('high', e.target.value)}
 //                       />
 //                     </div>
@@ -210,20 +210,20 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
   const [editedBiomarker, setEditedBiomarker] = useState(
     biomarker || {
       name: '',
-      ranges: []
+      referenceValues: []
     }
   );
 
   const handleRangeChange = (index, field, value) => {
-    const updatedRanges = [...editedBiomarker.ranges];
+    const updatedRanges = [...editedBiomarker.referenceValues];
     updatedRanges[index][field] = value;
-    setEditedBiomarker({ ...editedBiomarker, ranges: updatedRanges });
+    setEditedBiomarker({ ...editedBiomarker, referenceValues: updatedRanges });
   };
 
   const addRange = () => {
     setEditedBiomarker({
       ...editedBiomarker,
-      ranges: [...editedBiomarker.ranges, {
+      referenceValues: [...editedBiomarker.referenceValues, {
         gender: 'Male',
         fromYear: '',
         toYear: '',
@@ -235,8 +235,8 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
   };
 
   const removeRange = (index) => {
-    const newRanges = editedBiomarker.ranges.filter((_, i) => i !== index);
-    setEditedBiomarker({ ...editedBiomarker, ranges: newRanges });
+    const newRanges = editedBiomarker.referenceValues.filter((_, i) => i !== index);
+    setEditedBiomarker({ ...editedBiomarker, referenceValues: newRanges });
   };
 
   const handleSubmit = () => {
@@ -245,7 +245,7 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
       return;
     }
 
-    if (editedBiomarker.ranges.some(range => !range.low || !range.normal || !range.high)) {
+    if (editedBiomarker.referenceValues.some(range => !range.low || !range.normal || !range.high)) {
       alert('All range fields must be filled');
       return;
     }
@@ -280,7 +280,7 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
             </button>
 
             <div className="space-y-4">
-              {editedBiomarker.ranges.map((range, index) => (
+              {editedBiomarker.referenceValues.map((range, index) => (
                 <div key={index} className="p-4 bg-gray-50 rounded-xl space-y-4">
                   <div className="flex justify-between">
                     <h6 className="font-medium">Range {index + 1}</h6>
@@ -399,7 +399,7 @@ function Biomarkers() {
   const handleAddBiomarker = (newBiomarker) => {
   //   const updatedBiomarker = {
   //     ...newBiomarker,
-  //     ranges: [newBiomarker.ranges] // Wrap ranges in an array
+  //     referenceValues: [newBiomarker.referenceValues] // Wrap referenceValues in an array
   // };
     // setBiomarkersList([...biomarkersList, newBiomarker]);
     console.log("new", newBiomarker);
@@ -555,17 +555,17 @@ function Biomarkers() {
                     <tbody>
                     <td>
                             <span className="badge badge-danger">
-                              {biomarker.ranges.low}
+                              {biomarker.referenceValues.low}
                             </span>
                           </td>
                           <td>
                             <span className="badge badge-success">
-                              {biomarker.ranges.normal}
+                              {biomarker.referenceValues.normal}
                             </span>
                           </td>
                           <td>
                             <span className="badge badge-warning">
-                              {biomarker.ranges.high}
+                              {biomarker.referenceValues.high}
                             </span>
                           </td>
                     </tbody>
@@ -588,7 +588,7 @@ function Biomarkers() {
           </tr>
         </thead>
         <tbody>
-          {biomarker.ranges.map((refValue, index) => (
+          {biomarker.referenceValues.map((refValue, index) => (
             <tr key={index}>
               <td>
                 <span className="badge badge-danger">{refValue.low}</span>
