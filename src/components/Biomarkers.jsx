@@ -4,28 +4,229 @@ import BASE_URL from './apis';
 
 
 
+// function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
+//   const [editedBiomarker, setEditedBiomarker] = useState(
+//     biomarker || {
+//       name: '',
+//       referenceValues: {}
+//     }
+//   );
+
+//   const handleRangeChange = (field, value) => {
+//     setEditedBiomarker({
+//         ...editedBiomarker,
+//         referenceValues: {
+//             ...editedBiomarker.referenceValues,
+//             [field]: value
+//         }
+//     });
+// };
+
+//   const addRange = () => {
+//     setEditedBiomarker({
+//       ...editedBiomarker,
+//       referenceValues: [...editedBiomarker.referenceValues, {
+//         low: '',
+//         normal: '',
+//         high: ''
+//       }]
+//     });
+//   };
+
+//   const removeRange = (index) => {
+//     const newRanges = editedBiomarker.referenceValues.filter((_, i) => i !== index);
+//     setEditedBiomarker({ ...editedBiomarker, referenceValues: newRanges });
+//   };
+
+//   const handleSubmit = () => {
+//     if (!editedBiomarker.name.trim()) {
+//       alert('Name and category are required');
+//       return;
+//     }
+
+//     const invalidRanges =  !editedBiomarker.referenceValues.low || 
+//     !editedBiomarker.referenceValues.normal || 
+//     !editedBiomarker.referenceValues.high;
+//     if (invalidRanges) {
+//       alert('All range fields must be filled');
+//       return;
+//     }
+
+//     onSave(editedBiomarker);
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+//       <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4">
+//         <div className="p-6 border-b border-gray-200">
+//           <div className="flex justify-between items-center">
+//             <h3 className="text-xl font-semibold">
+//               {isEditing ? 'Edit Biomarker' : 'Add New Biomarker'}
+//             </h3>
+//             <button onClick={onClose} className="btn btn-light !p-2">
+//               <X size={20} />
+//             </button>
+//           </div>
+//         </div>
+
+//         <div className="p-6 space-y-6">
+//           {/* Basic Information */}
+//           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+//             <div className="form-group">
+//               <label className="form-label">Name</label>
+//               <input
+//                 type="text"
+//                 className="form-control"
+//                 value={editedBiomarker.name}
+//                 onChange={(e) => setEditedBiomarker({ ...editedBiomarker, name: e.target.value })}
+//                 placeholder="Enter biomarker name"
+//               />
+//             </div>
+//             {/* <div className="form-group">
+//               <label className="form-label">Category</label>
+//               <input
+//                 type="text"
+//                 className="form-control"
+//                 value={editedBiomarker.category}
+//                 onChange={(e) => setEditedBiomarker({ ...editedBiomarker, category: e.target.value })}
+//                 placeholder="Enter category"
+//               />
+//             </div> */}
+//             {/* <div className="form-group">
+//               <label className="form-label">Weight</label>
+//               <input
+//                 type="number"
+//                 step="0.1"
+//                 min="0"
+//                 max="1"
+//                 className="form-control"
+//                 value={editedBiomarker.weight}
+//                 onChange={(e) => setEditedBiomarker({ ...editedBiomarker, weight: parseFloat(e.target.value) })}
+//               />
+//             </div> */}
+//           </div>
+
+//           {/* Ranges */}
+//           <div>
+//             <div className="flex items-center justify-between mb-4">
+//               <h4 className="text-lg font-medium">Reference Ranges</h4>
+//               {/* <button 
+//                 onClick={addRange}
+//                 className="btn btn-light flex items-center gap-2"
+//               >
+//                 <PlusCircle size={18} />
+//                 Add Range
+//               </button> */}
+//             </div>
+
+//             <div className="space-y-4">
+//               {/* {editedBiomarker.ranges.map((range, index) => ( */}
+//                 <div className="p-4 bg-gray-50 rounded-xl space-y-4">
+//                   <div className="flex items-center justify-between">
+//                     <h6 className="font-medium">Range</h6>
+//                     {/* <button 
+//                       onClick={() => removeRange(index)}
+//                       className="btn btn-light !p-2"
+//                     >
+//                       <MinusCircle size={18} className="text-red-500" />
+//                     </button> */}
+//                   </div>
+//                   <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+//                     {/* <div>
+//                       <label className="form-label">Gender</label>
+//                       <select
+//                         className="form-control"
+//                         value={range.gender}
+//                         onChange={(e) => handleRangeChange(index, 'gender', e.target.value)}
+//                       >
+//                         <option value="Male">Male</option>
+//                         <option value="Female">Female</option>
+//                       </select>
+//                     </div> */}
+//                     {/* <div>
+//                       <label className="form-label">Age Range</label>
+//                       <input
+//                         type="text"
+//                         className="form-control"
+//                         placeholder="e.g., 18-30"
+//                         value={range.ageRange}
+//                         onChange={(e) => handleRangeChange(index, 'ageRange', e.target.value)}
+//                       />
+//                     </div> */}
+//                     <div>
+//                       <label className="form-label">Low</label>
+//                       <input
+//                         type="text"
+//                         className="form-control"
+//                         placeholder="e.g., <70 mg/dL"
+//                         value={editedBiomarker.referenceValues.low}
+//                         onChange={(e) => handleRangeChange('low', e.target.value)}
+//                       />
+//                     </div>
+//                     <div>
+//                       <label className="form-label">Normal</label>
+//                       <input
+//                         type="text"
+//                         className="form-control"
+//                         placeholder="e.g., 70-99 mg/dL"
+//                         value={editedBiomarker.referenceValues.normal}
+//                         onChange={(e) => handleRangeChange('normal', e.target.value)}
+//                       />
+//                     </div>
+//                     <div>
+//                       <label className="form-label">High</label>
+//                       <input
+//                         type="text"
+//                         className="form-control"
+//                         placeholder="e.g., >99 mg/dL"
+//                         value={editedBiomarker.referenceValues.high}
+//                         onChange={(e) => handleRangeChange('high', e.target.value)}
+//                       />
+//                     </div>
+//                   </div>
+//                 </div>
+//               {/* ))} */}
+//             </div>
+//           </div>
+//         </div>
+
+//         <div className="p-6 border-t border-gray-200 flex justify-end gap-4">
+//           <button onClick={onClose} className="btn btn-light">
+//             Cancel
+//           </button>
+//           <button 
+//             onClick={handleSubmit}
+//             className="btn btn-primary flex items-center gap-2"
+//           >
+//             <Save size={18} />
+//             {isEditing ? 'Save Changes' : 'Create Biomarker'}
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
   const [editedBiomarker, setEditedBiomarker] = useState(
     biomarker || {
       name: '',
-      referenceValues: {}
+      referenceValues: []
     }
   );
 
-  const handleRangeChange = (field, value) => {
-    setEditedBiomarker({
-        ...editedBiomarker,
-        referenceValues: {
-            ...editedBiomarker.referenceValues,
-            [field]: value
-        }
-    });
-};
+  const handleRangeChange = (index, field, value) => {
+    const updatedRanges = [...editedBiomarker.referenceValues];
+    updatedRanges[index][field] = value;
+    setEditedBiomarker({ ...editedBiomarker, referenceValues: updatedRanges });
+  };
 
   const addRange = () => {
     setEditedBiomarker({
       ...editedBiomarker,
       referenceValues: [...editedBiomarker.referenceValues, {
+        gender: 'Male',
+        fromYear: '',
+        toYear: '',
         low: '',
         normal: '',
         high: ''
@@ -40,14 +241,11 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
 
   const handleSubmit = () => {
     if (!editedBiomarker.name.trim()) {
-      alert('Name and category are required');
+      alert('Name is required');
       return;
     }
 
-    const invalidRanges =  !editedBiomarker.referenceValues.low || 
-    !editedBiomarker.referenceValues.normal || 
-    !editedBiomarker.referenceValues.high;
-    if (invalidRanges) {
+    if (editedBiomarker.referenceValues.some(range => !range.low || !range.normal || !range.high)) {
       alert('All range fields must be filled');
       return;
     }
@@ -58,154 +256,66 @@ function BiomarkerModal({ biomarker, onClose, onSave, isEditing }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4">
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex justify-between items-center">
-            <h3 className="text-xl font-semibold">
-              {isEditing ? 'Edit Biomarker' : 'Add New Biomarker'}
-            </h3>
-            <button onClick={onClose} className="btn btn-light !p-2">
-              <X size={20} />
-            </button>
-          </div>
+        <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+          <h3 className="text-xl font-semibold">{isEditing ? 'Edit Biomarker' : 'Add New Biomarker'}</h3>
+          <button onClick={onClose} className="btn btn-light !p-2"><X size={20} /></button>
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Basic Information */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="form-group">
-              <label className="form-label">Name</label>
-              <input
-                type="text"
-                className="form-control"
-                value={editedBiomarker.name}
-                onChange={(e) => setEditedBiomarker({ ...editedBiomarker, name: e.target.value })}
-                placeholder="Enter biomarker name"
-              />
-            </div>
-            {/* <div className="form-group">
-              <label className="form-label">Category</label>
-              <input
-                type="text"
-                className="form-control"
-                value={editedBiomarker.category}
-                onChange={(e) => setEditedBiomarker({ ...editedBiomarker, category: e.target.value })}
-                placeholder="Enter category"
-              />
-            </div> */}
-            {/* <div className="form-group">
-              <label className="form-label">Weight</label>
-              <input
-                type="number"
-                step="0.1"
-                min="0"
-                max="1"
-                className="form-control"
-                value={editedBiomarker.weight}
-                onChange={(e) => setEditedBiomarker({ ...editedBiomarker, weight: parseFloat(e.target.value) })}
-              />
-            </div> */}
+          <div className="form-group">
+            <label className="form-label">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              value={editedBiomarker.name}
+              onChange={(e) => setEditedBiomarker({ ...editedBiomarker, name: e.target.value })}
+              placeholder="Enter biomarker name"
+            />
           </div>
 
-          {/* Ranges */}
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-medium">Reference Ranges</h4>
-              {/* <button 
-                onClick={addRange}
-                className="btn btn-light flex items-center gap-2"
-              >
-                <PlusCircle size={18} />
-                Add Range
-              </button> */}
-            </div>
+            <h4 className="text-lg font-medium">Reference Ranges</h4>
+            <button onClick={addRange} className="btn btn-light flex items-center gap-2">
+              <PlusCircle size={18} /> Add Range
+            </button>
 
             <div className="space-y-4">
-              {/* {editedBiomarker.ranges.map((range, index) => ( */}
-                <div className="p-4 bg-gray-50 rounded-xl space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h6 className="font-medium">Range</h6>
-                    {/* <button 
-                      onClick={() => removeRange(index)}
-                      className="btn btn-light !p-2"
-                    >
+              {editedBiomarker.referenceValues.map((range, index) => (
+                <div key={index} className="p-4 bg-gray-50 rounded-xl space-y-4">
+                  <div className="flex justify-between">
+                    <h6 className="font-medium">Range {index + 1}</h6>
+                    <button onClick={() => removeRange(index)} className="btn btn-light !p-2">
                       <MinusCircle size={18} className="text-red-500" />
-                    </button> */}
+                    </button>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                    {/* <div>
-                      <label className="form-label">Gender</label>
-                      <select
-                        className="form-control"
-                        value={range.gender}
-                        onChange={(e) => handleRangeChange(index, 'gender', e.target.value)}
-                      >
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                      </select>
-                    </div> */}
-                    {/* <div>
-                      <label className="form-label">Age Range</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="e.g., 18-30"
-                        value={range.ageRange}
-                        onChange={(e) => handleRangeChange(index, 'ageRange', e.target.value)}
-                      />
-                    </div> */}
-                    <div>
-                      <label className="form-label">Low</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="e.g., <70 mg/dL"
-                        value={editedBiomarker.referenceValues.low}
-                        onChange={(e) => handleRangeChange('low', e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="form-label">Normal</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="e.g., 70-99 mg/dL"
-                        value={editedBiomarker.referenceValues.normal}
-                        onChange={(e) => handleRangeChange('normal', e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label className="form-label">High</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="e.g., >99 mg/dL"
-                        value={editedBiomarker.referenceValues.high}
-                        onChange={(e) => handleRangeChange('high', e.target.value)}
-                      />
-                    </div>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <select className="form-control" value={range.gender} onChange={(e) => handleRangeChange(index, 'gender', e.target.value)}>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                    <input type="number" className="form-control" placeholder="From Age" value={range.fromYear} onChange={(e) => handleRangeChange(index, 'fromYear', e.target.value)} />
+                    <input type="number" className="form-control" placeholder="To Age" value={range.toYear} onChange={(e) => handleRangeChange(index, 'toYear', e.target.value)} />
+                    <input type="text" className="form-control" placeholder="Low" value={range.low} onChange={(e) => handleRangeChange(index, 'low', e.target.value)} />
+                    <input type="text" className="form-control" placeholder="Normal" value={range.normal} onChange={(e) => handleRangeChange(index, 'normal', e.target.value)} />
+                    <input type="text" className="form-control" placeholder="High" value={range.high} onChange={(e) => handleRangeChange(index, 'high', e.target.value)} />
                   </div>
                 </div>
-              {/* ))} */}
+              ))}
             </div>
           </div>
         </div>
 
         <div className="p-6 border-t border-gray-200 flex justify-end gap-4">
-          <button onClick={onClose} className="btn btn-light">
-            Cancel
-          </button>
-          <button 
-            onClick={handleSubmit}
-            className="btn btn-primary flex items-center gap-2"
-          >
-            <Save size={18} />
-            {isEditing ? 'Save Changes' : 'Create Biomarker'}
+          <button onClick={onClose} className="btn btn-light">Cancel</button>
+          <button onClick={handleSubmit} className="btn btn-primary flex items-center gap-2">
+            <Save size={18} /> {isEditing ? 'Save Changes' : 'Create Biomarker'}
           </button>
         </div>
       </div>
     </div>
   );
 }
+
 
 function Biomarkers() {
   const [biomarkersList, setBiomarkersList] = useState([]);
@@ -252,7 +362,7 @@ function Biomarkers() {
     const { categories, ...updatedBiomarker } = editedBiomarker;
 
 
-    console.log(updatedBiomarker);
+    console.log("final",updatedBiomarker);
 
     updateBiomarker(updatedBiomarker)
     
@@ -287,13 +397,13 @@ function Biomarkers() {
   };
 
   const handleAddBiomarker = (newBiomarker) => {
-    const updatedBiomarker = {
-      ...newBiomarker,
-      referenceValues: [newBiomarker.referenceValues] // Wrap referenceValues in an array
-  };
+  //   const updatedBiomarker = {
+  //     ...newBiomarker,
+  //     referenceValues: [newBiomarker.referenceValues] // Wrap referenceValues in an array
+  // };
     // setBiomarkersList([...biomarkersList, newBiomarker]);
-    console.log("new", updatedBiomarker);
-    addBiomarkerWithRanges(updatedBiomarker);
+    console.log("new", newBiomarker);
+    addBiomarkerWithRanges(newBiomarker);
 
     
     setIsAddingBiomarker(false);
@@ -316,7 +426,7 @@ function Biomarkers() {
       const data = await response.json();
       alert('Data submitted Successfully')
       window.location.reload();
-      console.log("Category added successfully:", data);
+      console.log("Biomarker added successfully:", data);
       return data;
     } catch (error) {
       console.error("Error adding category:", error);
@@ -341,7 +451,7 @@ function Biomarkers() {
   
       // const data = await response.json();
       window.location.reload();
-      alert('Category Deleted Successfully')
+      alert('Biomarker Deleted Successfully')
       
       return
     } catch (error) {
@@ -430,7 +540,7 @@ function Biomarkers() {
               </div>
             </div>
 
-            {expandedBiomarker === biomarker.id && (
+            {/* {expandedBiomarker === biomarker.id && (
               <div className="card-body">
                 <div className="table-container">
                   <table className="table">
@@ -462,7 +572,44 @@ function Biomarkers() {
                   </table>
                 </div>
               </div>
-            )}
+            )} */}
+            {expandedBiomarker === biomarker.id && (
+  <div className="card-body">
+    <div className="table-container">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Low</th>
+            <th>Normal</th>
+            <th>High</th>
+            <th>From Year</th>
+            <th>To Year</th>
+            <th>Gender</th>
+          </tr>
+        </thead>
+        <tbody>
+          {biomarker.referenceValues.map((refValue, index) => (
+            <tr key={index}>
+              <td>
+                <span className="badge badge-danger">{refValue.low}</span>
+              </td>
+              <td>
+                <span className="badge badge-success">{refValue.normal}</span>
+              </td>
+              <td>
+                <span className="badge badge-warning">{refValue.high}</span>
+              </td>
+              <td>{refValue.fromYear}</td>
+              <td>{refValue.toYear}</td>
+              <td>{refValue.gender}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
+
           </div>
         ))}
       </div>
